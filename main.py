@@ -2,7 +2,7 @@ class Stack:
     def __init__(self):
         self.items = []
 
-    def isEmpty(self):
+    def is_empty(self):
         return self.items == []
 
     def push(self, item):
@@ -25,13 +25,14 @@ class Stack:
     # '{{[(])]}}'
     # '[[{())}]'
 
+
 def balanced_brackets(string: str) -> bool:
     s = Stack()
     for char in string:
         if char in '({[':
             s.push(char)
         elif char in ')}]':
-            if s.isEmpty():
+            if s.is_empty():
                 return False
             if char == ')' and s.peek() != '(':
                 return False
@@ -40,7 +41,8 @@ def balanced_brackets(string: str) -> bool:
             if char == ']' and s.peek() != '[':
                 return False
             s.pop()
-    return s.isEmpty()
+    return s.is_empty()
+
 
 print(balanced_brackets('(((([{}]))))'))
 print(balanced_brackets('[([])((([[[]]])))]'))
