@@ -44,4 +44,4 @@ def balanced_brackets(string: str) -> bool:
 
 print(balanced_brackets('(((([{}]))))'))
 print(balanced_brackets('[([])((([[[]]])))]'))
-print(balanced_brackets('[[{())}]'))
+print(balanced_brackets('[({)]}'))
