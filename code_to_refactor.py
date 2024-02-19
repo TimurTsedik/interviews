@@ -1,28 +1,25 @@
 import email
 import smtplib
 import imaplib
-from email.MIMEText import MIMEText
-from email.MIMEMultipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 class Mail:
 
-    def __init__(self, login, password, recipients, subject, message):
+    def __init__(self, login, password):
         self.login = login
         self.password = password
-        self.recipients = recipients
-        self.subject = subject
-        self.message = message
         self.smtp_address = "smtp.gmail.com"
         self.imap_address = "imap.gmail.com"
         self.header = None
 
-    def send_mail(self):
+    def send_mail(self, recipients, subject, message_text):
         message = MIMEMultipart()
         message['From'] = self.login
-        message['To'] = ', '.join(self.recipients)
-        message['Subject'] = self.subject
-        message.attach(MIMEText(self.message))
+        message['To'] = ', '.join(recipients)
+        message['Subject'] = subject
+        message.attach(MIMEText(message_text))
         msg_sender = smtplib.SMTP(self.smtp_address, 587)
         # identify ourselves to smtp gmail client
         msg_sender.ehlo()
@@ -31,7 +28,7 @@ class Mail:
         # re-identify ourselves as an encrypted connection
         msg_sender.ehlo()
         msg_sender.login(self.login, self.password)
-        msg_sender.sendmail(self.login, self.recipients, message.as_string())
+        msg_sender.sendmail(self.login, recipients, message.as_string())
         msg_sender.quit()
 
     def receive_mail(self) -> str:
@@ -55,6 +52,6 @@ password = 'qwerty'
 subject = 'Subject'
 recipients = ['vasya@email.com', 'petya@email.com']
 message = 'Message'
-mail = Mail(login, password, recipients, subject, message)
-mail.send_mail()
+mail = Mail(login, password)
+mail.send_mail(recipients, subject, message)
 print(mail.receive_mail())
