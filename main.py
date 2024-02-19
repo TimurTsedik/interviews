@@ -26,22 +26,30 @@ class Stack:
     # '[[{())}]'
 
 
-def balanced_brackets(string: str) -> bool:
+def balanced_brackets(string: str) -> str:
     s = Stack()
     for char in string:
         if char in '({[':
             s.push(char)
         elif char in ')}]':
             if s.is_empty():
-                return False
+                output = 'Несбалансированно'
+                return output
             if char == ')' and s.peek() != '(':
-                return False
+                output = 'Несбалансированно'
+                return output
             if char == '}' and s.peek() != '{':
-                return False
+                output = 'Несбалансированно'
+                return output
             if char == ']' and s.peek() != '[':
-                return False
+                output = 'Несбалансированно'
+                return output
             s.pop()
-    return s.is_empty()
+    if s.is_empty():
+        output = 'Сбалансированно'
+    else:
+        output = 'Несбалансированно'
+    return output
 
 
 print(balanced_brackets('(((([{}]))))'))
