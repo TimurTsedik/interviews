@@ -46,12 +46,12 @@ class Mail:
         msg_receiver.logout()
         return email_message.as_string()
 
-
-login = 'login@gmail.com'
-password = 'qwerty'
-subject = 'Subject'
-recipients = ['vasya@email.com', 'petya@email.com']
-message = 'Message'
-mail = Mail(login, password)
-mail.send_mail(recipients, subject, message)
-print(mail.receive_mail())
+if __name__ == '__main__':
+    login = 'login@gmail.com'
+    password = 'qwerty'
+    subject = 'Subject'
+    recipients = ['vasya@email.com', 'petya@email.com']
+    message = 'Message'
+    mail = Mail(login, password)
+    mail.send_mail(recipients, subject, message)
+    print(mail.receive_mail())
